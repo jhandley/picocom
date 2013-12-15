@@ -13,11 +13,12 @@ CFLAGS = -Wall -g
 LDFLAGS = -g
 LDLIBS =
 
-picocom : picocom.o term.o
+picocom : picocom.o term.o linenoise.o
 #	$(LD) $(LDFLAGS) -o $@ $+ $(LDLIBS)
 
-picocom.o : picocom.c term.h
+picocom.o : picocom.c term.h linenoise.h
 term.o : term.c term.h
+linenoise.o : linenoise.c linenoise.h
 
 doc : picocom.8 picocom.8.html picocom.8.ps
 
@@ -34,7 +35,7 @@ picocom.8.ps : picocom.8
 	groff -mandoc -Tps $< > $@
 
 clean:
-	rm -f picocom.o term.o
+	rm -f picocom.o term.o linenoise.o
 	rm -f *~
 	rm -f \#*\#
 
